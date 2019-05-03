@@ -54,55 +54,64 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                //Convert to int/double
-                int peopleAmount = Integer.parseInt(inputPeople.getText().toString());
-                double billAmount1 = Integer.parseInt(inputBill.getText().toString());
-
-                //Calculation
-                double costPerPerson1 = billAmount1 / peopleAmount;
-                String costPerPerson = String.format("$%.2f", costPerPerson1);
-
-                double costPerPersonGST1 = (billAmount1 / peopleAmount) * 1.07;
-                String costPerPersonGST = String.format("$%.2f", costPerPersonGST1);
-
-                double costPerPersonSC1  = (billAmount1 / peopleAmount) * 1.10;
-                String costPerPersonSC = String.format("$%.2f", costPerPersonSC1);
-
-                double costPerPersonAll1 = (billAmount1 / peopleAmount) * 1.17;
-                String costPerPersonAll = String.format("$%.2f", costPerPersonAll1);
-
-                //Format to 2 dec
-                String billAmount = String.format("$%.2f", billAmount1);
-
-                double billAmountGST1 = billAmount1 * 1.07;
-                String billAmountGST = String.format("$%.2f", billAmountGST1);
-
-                double billAmountSC1 = billAmount1 * 1.10;
-                String billAmountSC = String.format("$%.2f", billAmountSC1);
-
-                double billAmountAll1 = billAmount1 * 1.17;
-                String billAmountAll = String.format("$%.2f", billAmountAll1);
-
-                if(!gstButton.isChecked() && !serviceChargeButton.isChecked()) {
-                    //Display
-                    resultTotalAmount.setText(billAmount);
-                    resultPerPerson.setText(costPerPerson);
-
+                if(inputBill.getText().length() == 0 || inputPeople.getText().length() == 0)
+                {
+                    String error = "Please input both values";
+                    inputBill.setText(error);
+                    inputPeople.setText(error);
                 }
-                else if(!gstButton.isChecked() && serviceChargeButton.isChecked()){
-                    //Display
-                    resultTotalAmount.setText(billAmountSC);
-                    resultPerPerson.setText(costPerPersonSC);
-                }
-                else if(gstButton.isChecked() && !serviceChargeButton.isChecked()){
-                    //Display
-                    resultTotalAmount.setText(billAmountGST);
-                    resultPerPerson.setText(costPerPersonGST);
-                }
-                else if(gstButton.isChecked()&& serviceChargeButton.isChecked()){
-                    //Display
-                    resultTotalAmount.setText(billAmountAll);
-                    resultPerPerson.setText(costPerPersonAll);
+                else
+                {
+                    //Convert to int/double
+                    int peopleAmount = Integer.parseInt(inputPeople.getText().toString());
+                    double billAmount1 = Integer.parseInt(inputBill.getText().toString());
+
+                    //Calculation
+                    double costPerPerson1 = billAmount1 / peopleAmount;
+                    String costPerPerson = String.format("$%.2f", costPerPerson1);
+
+                    double costPerPersonGST1 = (billAmount1 / peopleAmount) * 1.07;
+                    String costPerPersonGST = String.format("$%.2f", costPerPersonGST1);
+
+                    double costPerPersonSC1  = (billAmount1 / peopleAmount) * 1.10;
+                    String costPerPersonSC = String.format("$%.2f", costPerPersonSC1);
+
+                    double costPerPersonAll1 = (billAmount1 / peopleAmount) * 1.17;
+                    String costPerPersonAll = String.format("$%.2f", costPerPersonAll1);
+
+                    //Format to 2 dec
+                    String billAmount = String.format("$%.2f", billAmount1);
+
+                    double billAmountGST1 = billAmount1 * 1.07;
+                    String billAmountGST = String.format("$%.2f", billAmountGST1);
+
+                    double billAmountSC1 = billAmount1 * 1.10;
+                    String billAmountSC = String.format("$%.2f", billAmountSC1);
+
+                    double billAmountAll1 = billAmount1 * 1.17;
+                    String billAmountAll = String.format("$%.2f", billAmountAll1);
+
+                    if(!gstButton.isChecked() && !serviceChargeButton.isChecked()) {
+                        //Display
+                        resultTotalAmount.setText(billAmount);
+                        resultPerPerson.setText(costPerPerson);
+
+                    }
+                    else if(!gstButton.isChecked() && serviceChargeButton.isChecked()){
+                        //Display
+                        resultTotalAmount.setText(billAmountSC);
+                        resultPerPerson.setText(costPerPersonSC);
+                    }
+                    else if(gstButton.isChecked() && !serviceChargeButton.isChecked()){
+                        //Display
+                        resultTotalAmount.setText(billAmountGST);
+                        resultPerPerson.setText(costPerPersonGST);
+                    }
+                    else if(gstButton.isChecked()&& serviceChargeButton.isChecked()){
+                        //Display
+                        resultTotalAmount.setText(billAmountAll);
+                        resultPerPerson.setText(costPerPersonAll);
+                    }
                 }
             }
         });
@@ -110,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                resultTotalAmount.setText(" ");
-                resultPerPerson.setText(" ");
-                inputPeople.setText(" ");
-                inputBill.setText(" ");
+                resultTotalAmount.setText("");
+                resultPerPerson.setText("");
+                inputPeople.setText("");
+                inputBill.setText("");
                 gstButton.setChecked(false);
                 serviceChargeButton.setChecked(false);
             }
